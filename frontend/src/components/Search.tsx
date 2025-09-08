@@ -1,9 +1,6 @@
-import { Calculator, Calendar, Smile } from "lucide-react";
-
 import {
   Command,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
@@ -40,7 +37,7 @@ export function Search() {
       className="rounded-lg border border-border shadow-md md:min-w-[450px]"
     >
       <CommandInput
-        placeholder="Type a command or search..."
+        placeholder="Type to search for music..."
         value={search}
         onValueChange={handleSearch}
       />
@@ -53,19 +50,19 @@ export function Search() {
           !error &&
           listOfSongs.length === 0 &&
           debouncedSearch && <CommandEmpty>No results found.</CommandEmpty>}
-        {!isLoading &&
-          !error &&
-          listOfSongs.length === 0 &&
-          !debouncedSearch && (
-            <CommandEmpty>Start typing to search for music...</CommandEmpty>
-          )}
-        <CommandGroup heading="Tracks">
-          {listOfSongs.map((song, index) => (
-            <CommandItem key={`${song.title}-${song.artist}-${index}`}>
-              <SongCard {...song} />
-            </CommandItem>
-          ))}
-        </CommandGroup>
+
+        {listOfSongs.map((song, index) => (
+          <CommandItem key={`${song.title}-${song.artist}-${index}`}>
+            <SongCard
+              id={song.id}
+              title={song.title}
+              artist={song.artist}
+              album={song.album}
+              image={song.image}
+              primaryGenreName={song.primaryGenreName}
+            />
+          </CommandItem>
+        ))}
       </CommandList>
     </Command>
   );
